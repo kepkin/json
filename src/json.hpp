@@ -2026,9 +2026,9 @@ class basic_json
 
             case (value_t::number_integer):
             {
-                const auto sz = static_cast<unsigned int>(snprintf(nullptr, 0, "%ld", m_value.number_integer));
+                const auto sz = static_cast<unsigned int>(snprintf(nullptr, 0, "%lld", static_cast<long long int>(m_value.number_integer)));
                 std::vector<char> buf(sz + 1);
-                const auto rs = snprintf(&buf.front(), buf.size(), "%ld", m_value.number_integer);
+                const auto rs = snprintf(&buf.front(), buf.size(), "%lld", static_cast<long long int>(m_value.number_integer));
                 return string_t(buf.data(), rs);
             }
 
