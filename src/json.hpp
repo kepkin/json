@@ -2026,10 +2026,10 @@ class basic_json
 
             case (value_t::number_integer):
             {
-                const auto sz = static_cast<unsigned int>(snprintf(nullptr, 0, "%d", m_value.number_integer));
+                const auto sz = static_cast<unsigned int>(snprintf(nullptr, 0, "%ld", m_value.number_integer));
                 std::vector<char> buf(sz + 1);
-                snprintf(&buf.front(), buf.size(), "%d", m_value.number_integer);
-                return string_t(buf.data());
+                const auto rs = snprintf(&buf.front(), buf.size(), "%ld", m_value.number_integer);
+                return string_t(buf.data(), rs);
             }
 
             case (value_t::number_float):
@@ -2038,8 +2038,8 @@ class basic_json
                 // string->double->string
                 const auto sz = static_cast<unsigned int>(snprintf(nullptr, 0, "%.15g", m_value.number_float));
                 std::vector<char> buf(sz + 1);
-                snprintf(&buf.front(), buf.size(), "%.15g", m_value.number_float);
-                return string_t(buf.data());
+                const auto rs = snprintf(&buf.front(), buf.size(), "%.15g", m_value.number_float);
+                return string_t(buf.data(), rs);
             }
 
             default:
